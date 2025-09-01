@@ -63,7 +63,23 @@ NGINX_CLIENT_MAX_BODY_SIZE=500M
 
 ### 🚀 一键启动
 
-#### 方式一：使用启动脚本（推荐）
+#### 方式一：docker启动（推荐）
+
+```bash
+# 1. 创建必要目录
+mkdir -p uploads outputs
+
+# 2. 启动服务
+docker-compose up --build -d
+
+# 3. 查看服务状态
+docker-compose ps
+
+# 4. 查看日志（可选）
+docker-compose logs -f
+```
+
+#### 方式二：使用启动脚本
 
 **Linux/macOS**
 ```bash
@@ -80,31 +96,7 @@ netstat -tulpn | grep :8080  # Web界面
 netstat -tulpn | grep :5000  # API服务
 ```
 
-**Windows**
-```cmd
-# 1. 克隆项目
-git clone <repository-url>
-cd dify-plugin-repackaging-web
 
-# 2. 启动服务
-start.bat
-```
-
-#### 方式二：手动启动
-
-```bash
-# 1. 创建必要目录
-mkdir -p uploads outputs
-
-# 2. 启动服务
-docker-compose up --build -d
-
-# 3. 查看服务状态
-docker-compose ps
-
-# 4. 查看日志（可选）
-docker-compose logs -f
-```
 
 ## 🌐 访问地址
 
