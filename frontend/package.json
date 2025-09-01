@@ -1,0 +1,31 @@
+{
+  "name": "dify-plugin-repackaging-web",
+  "version": "1.0.0",
+  "description": "Dify插件重新打包工具Web界面",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:with-types": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "axios": "^1.6.2",
+    "dayjs": "^1.11.10",
+    "element-plus": "^2.4.3",
+    "pinia": "^2.1.7",
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "@vitejs/plugin-vue": "^4.5.0",
+    "sass-embedded": "^1.89.2",
+    "typescript": "^5.2.2",
+    "unplugin-auto-import": "^0.17.2",
+    "unplugin-vue-components": "^0.25.2",
+    "vite": "^5.0.0",
+    "vue-tsc": "^2.0.6"
+  }
+}
