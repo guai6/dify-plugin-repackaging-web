@@ -1,0 +1,54 @@
+name: Repackage Dify Plugin
+
+on:
+  workflow_dispatch:
+    inputs:
+      plugin_author:
+        description: "plugin author"
+        required: true
+        type: string
+      plugin_name:
+        description: "plugin name"
+        required: true
+        type: string
+      plugin_version:
+        description: "plugin version"
+        required: true
+        type: string
+
+jobs:
+  repackage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Make plugin_repackaging.sh executable
+        run: chmod +x ./plugin_repackaging.sh
+
+      - name: Run plugin repackaging script
+        run: |
+          ./plugin_repackaging.sh -p manylinux_2_17_x86_64 market "${{ github.event.inputs.plugin_author }}" "${{ github.event.inputs.plugin_name }}" "${{ github.event.inputs.plugin_version }}"
+
+      - name: Find repackaged artifact
+        id: artifact
+        run: |
+          ARTIFACT_PATH=$(find . -type f -name '*-offline.difypkg' | head -n 1)
+          if [ -z "$ARTIFACT_PATH" ]; then
+            echo "No -offline.difypkg artifact found!"
+            exit 1
+          fi
+          ARTIFACT_NAME=$(basename "$ARTIFACT_PATH")
+          echo "artifact=$ARTIFACT_PATH" >> $GITHUB_OUTPUT
+          echo "artifact_name=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.artifact.outputs.artifact_name }}
+          path: ${{ steps.artifact.outputs.artifact }}
